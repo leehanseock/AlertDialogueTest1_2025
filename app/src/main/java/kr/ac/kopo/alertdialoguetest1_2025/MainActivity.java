@@ -35,24 +35,17 @@ public class MainActivity extends AppCompatActivity {
                 final String[] hollweenIcons={"해골","좀비","박쥐","검은 고양이"};
                 AlertDialog.Builder dlg = new AlertDialog.Builder(MainActivity.this);
                 dlg.setTitle("인공지능소프트웨어과 공지사항");
-                dlg.setSingleChoiceItems(hollweenIcons, 0, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        btn1.setText(hollweenIcons[which]);
-                        switch (which){
-                            case 0:
-                                imgv.setImageResource(R.drawable.skull);
-                                break;
-                            case 1:
-                                imgv.setImageResource(R.drawable.zombie);
-                                break;
-                            case 2:
-                                imgv.setImageResource(R.drawable.bat);
-                                break;
-                            case 3:
-                                imgv.setImageResource(R.drawable.blackcat);
-                                break;
-                        }}
+                final boolean[] checkArray = {true, false, false, false};
+                final int[] imgRes = {R.drawable.skull, R.drawable.zombie, R.drawable.bat, R.drawable.blackcat};
+                dlg.setMultiChoiceItems(hollweenIcons, checkArray, new DialogInterface.OnMultiChoiceClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                                if(isChecked) {
+                                    btn1.setText(hollweenIcons[which]);
+                                    imgv.setImageResource(imgRes[which]);
+                                }
+                            }
+
 //                    @Override
 //                    public void onClick(DialogInterface dialog, int which) {
 //                        btn1.setText(hollweenIcons[which]);
@@ -71,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
 //                                break;
 //                        }
 //                    }
-                });
+            });
 //                dlg.setMessage("513호에 타과 학생이 만약에 있다면 추방해주시기 바랍니다.");
                 dlg.setIcon(R.drawable.night);
                 dlg.setPositiveButton("닫기", null);
